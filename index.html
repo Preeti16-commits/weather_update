@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>weather app</title>
-    <link rel="icon" size="200x200" href="bcloud.png">
+    <link rel="icon" href="bcloud.png">
     <style>
         body{
             background-color:#c6e5ff;
@@ -31,12 +31,22 @@
         button:hover{
             background: linear-gradient(to right, #02eaff,  #45a9fb);
         }
+        input{
+            border-radius: 15px;
+            background-color: #a4d6ff;
+            border:1px solid #aaa;
+            padding:10px 20px;
+            text-align: center;
+        }
+        input:hover{
+            background-color: #b3d7f4;
+        }
     </style>
 </head>
 <body>
     <section>
         <h1>Weather App</h1>
-        <div><input type="text" id="input" placeholder="Enter a city"></div><br><br>
+        <input type="text" id="input" placeholder="Enter a city"><br><br>
         <button id="button">Get Weather</button>
         <p id="content"></p>
     </section>
@@ -57,5 +67,4 @@
 
     </script>
 </body>
-
 </html>
