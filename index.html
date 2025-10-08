@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>weather app</title>
+    <title>weather Updates</title>
     <link rel="icon" href="bcloud.png">
     <style>
         body{
-            background-color:#c6e5ff;
             text-align: center;
             background-image: url('https://www.metoffice.gov.uk/binaries/content/gallery/metofficegovuk/hero-images/weather/cloud/crepuscular-rays-around-cumulus-cloud.jpg');
             background-size: cover;
             background-repeat: no-repeat;
+            color: #333333;
         }
         section{
-            background-color: rgb(211, 231, 248);
+            background-color: rgba(211, 231, 248, 0.4);
             margin:10% 30%;
-            padding:10px 10px;
+            padding:20px 10px;
             border-radius: 10px;
-            box-shadow:0 10px 7px rgba(11, 14, 17, 0.4);
-            transition: transform 0.3s ease;
+            transition: transform 0.7s ease;
+            backdrop-filter: blur(10px); 
+
         }
         section:hover{
-            transform:scale(1.05);
+            transform:scale(1.06);
+            box-shadow:0 10px 7px rgba(11, 14, 17, 0.4);
         }
         button{
             background: linear-gradient(to right, #45a9fb, #02eaff);
@@ -32,11 +34,11 @@
             padding: 9px 15px;
             color: white;
             transition: transform 0.3s ease;
-            box-shadow: 0 10px 20px rgba(11, 14, 17, 0.4);
         }
         button:hover{
-            background: linear-gradient(to right, #02eaff,  #45a9fb);
+            background: linear-gradient(to left, #45a9fb, #02eaff);
             transform: scale(1.05);
+            box-shadow: 0 10px 8px rgba(11, 14, 17, 0.4);
         }
         input{
             border-radius: 15px;
@@ -44,18 +46,18 @@
             border:1px solid #aaa;
             padding:10px 20px;
             text-align: center;
-            box-shadow: 0 10px 20px rgba(11, 14, 17, 0.4);
         }
         input:hover{
             background-color: #b3d7f4;
             border:1px solid #092a55;
+            box-shadow: 0 3px 5px rgba(11, 14, 17, 0.4);
         }
     </style>
 </head>
 <body>
     <section>
-        <h1>Weather App</h1>
-        <input type="text" id="input" placeholder="Enter a city"><br><br>
+        <h1>Weather Updates</h1>
+        <input type="text" id="input" placeholder="Enter your city"><br><br>
         <button id="button">Get Weather</button>
         <p id="content"></p>
     </section>
@@ -63,6 +65,7 @@
             document.getElementById("button").addEventListener("click", function() {
               const city = document.getElementById("input").value
               const apiKey = "7fc69e7cc2b82b5c5f09a71f5744c9c4";
+              document.getElementById("content").innerText="Loading... ⏳"
 
               fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
                 .then(response => {return response.json()})
