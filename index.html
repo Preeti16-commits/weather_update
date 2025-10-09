@@ -14,16 +14,16 @@
             color: #333333;
         }
         section{
-            background-color: rgba(211, 231, 248, 0.4);
+            background-color: rgba(211, 231, 248, 0.7);
             margin:10% 30%;
-            padding:20px 10px;
+            padding:20px;
             border-radius: 10px;
             transition: transform 0.7s ease;
             backdrop-filter: blur(10px); 
 
         }
         section:hover{
-            transform:scale(1.06);
+            transform:scale(1.05);
             box-shadow:0 10px 7px rgba(11, 14, 17, 0.4);
         }
         button{
@@ -38,14 +38,15 @@
         button:hover{
             background: linear-gradient(to left, #45a9fb, #02eaff);
             transform: scale(1.05);
-            box-shadow: 0 10px 8px rgba(11, 14, 17, 0.4);
+            box-shadow: 0 4px 4px rgba(11, 14, 17, 0.4);
         }
         input{
             border-radius: 15px;
             background-color: #a4d6ff;
             border:1px solid #aaa;
-            padding:10px 20px;
+            padding:10px 10px;
             text-align: center;
+            text-align: left;
         }
         input:hover{
             background-color: #b3d7f4;
@@ -57,7 +58,7 @@
 <body>
     <section>
         <h1>Weather Updates</h1>
-        <input type="text" id="input" placeholder="Enter your city"><br><br>
+        <input type="text" id="input" placeholder="🔍         Enter your city"><br><br>
         <button id="button">Get Weather</button>
         <p id="content"></p>
     </section>
@@ -65,18 +66,23 @@
             document.getElementById("button").addEventListener("click", function() {
               const city = document.getElementById("input").value
               const apiKey = "7fc69e7cc2b82b5c5f09a71f5744c9c4";
-              document.getElementById("content").innerText="Loading... ⏳"
-
+              document.getElementById("content").innerText="Loading...⌛"
+              if (city===""){
+                alert('Please enter a city')
+                return document.getElementById("content").innerHTML=""
+              }
               fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
                 .then(response => {return response.json()})
                 .then(data => {
+                    if (data.cod === "404" || city.toLowerCase()!==data.name.toLowerCase()) {
+                        return document.getElementById("content").innerHTML = "<b>Please stay on your planet</b>";
+                    }
                     document.getElementById("content").innerHTML = `<b>Weather in ${data.name}</b>: ${data.weather[0].description}<br><br><b>Temperature</b>: ${data.main.temp}°C`;
                 })
                 .catch(err => {
-                    document.getElementById("content").innerHTML = "Error: not found"
+                    document.getElementById("content").innerHTML = "<b>Error</b>: Please check your Internet connection"
                 });
             });
-
     </script>
 </body>
 </html>
